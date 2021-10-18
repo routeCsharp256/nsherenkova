@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{83930311-A7A2-4520-A2BD-9119B21D429E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{7F656CA1-5CEB-4532-BDAA-52E669CB7C18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4B908AD4-63D8-4A15-A4E8-B4220AD47E45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService", "src\OzonEdu.MerchandiseService\OzonEdu.MerchandiseService.csproj", "{B2379292-97CD-4BCE-903E-22E2802C13FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B2379292-97CD-4BCE-903E-22E2802C13FF} = {83930311-A7A2-4520-A2BD-9119B21D429E}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2379292-97CD-4BCE-903E-22E2802C13FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2379292-97CD-4BCE-903E-22E2802C13FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2379292-97CD-4BCE-903E-22E2802C13FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2379292-97CD-4BCE-903E-22E2802C13FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
