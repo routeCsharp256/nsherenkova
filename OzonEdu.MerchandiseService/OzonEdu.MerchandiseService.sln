@@ -5,11 +5,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{7F656CA1-5CEB-4532-BDAA-52E669CB7C18}"
 ProjectSection(SolutionItems) = preProject
 	Dockerfile = Dockerfile
+	.gitignore = .gitignore
+	README.md = README.md
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4B908AD4-63D8-4A15-A4E8-B4220AD47E45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService", "src\OzonEdu.MerchandiseService\OzonEdu.MerchandiseService.csproj", "{B2379292-97CD-4BCE-903E-22E2802C13FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{9E53B662-354D-411F-93FF-F53E10A7D831}"
+ProjectSection(SolutionItems) = preProject
+	src\docker-compose.yaml = src\docker-compose.yaml
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
