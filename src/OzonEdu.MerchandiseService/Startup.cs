@@ -1,51 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using OzonEdu.MerchandiseService.GrpcServices;
+using OzonEdu.MerchandiseService.Infrastructure.Interceptors;
+using OzonEdu.MerchandiseService.Services;
+using OzonEdu.MerchandiseService.Services.Interfaces;
 
 namespace OzonEdu.MerchandiseService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "OzonEdu.MerchandiseService", Version = "v1"});
-            });
+            services.AddSingleton<IMerchService, MerchService>();
+
+            services.AddGrpc(options => options.Interceptors.Add<LoggingInterceptor>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OzonEdu.MerchandiseService v1"));
-            }
-
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGrpcService<MerchGrpcService>();
+                endpoints.MapControllers();
+            });
         }
     }
 }
