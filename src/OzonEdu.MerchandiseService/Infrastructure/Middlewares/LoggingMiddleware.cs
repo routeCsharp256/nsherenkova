@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
 {
-    public class RequestLoggingMiddleware
+    public class LoggingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<RequestLoggingMiddleware> _logger;
+        private readonly ILogger<LoggingMiddleware> _logger;
 
-        public RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggingMiddleware> logger)
+        public LoggingMiddleware(RequestDelegate next, ILogger<LoggingMiddleware> logger)
         {
             _next = next;
             _logger = logger;
@@ -21,6 +21,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
         {
             await LogRequest(context);
             await _next(context);
+            await LogResponse(context);
         }
 
         private async Task LogRequest(HttpContext context)
@@ -34,17 +35,37 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
                     var buffer = new byte[context.Request.ContentLength.Value];
                     await context.Request.Body.ReadAsync(buffer, 0, buffer.Length);
                     var bodyAsText = Encoding.UTF8.GetString(buffer);
-                    var headerAsText = context.Request.Headers;
-                    var routeAsText = context.Request.PathBase.Value;
+                    
                     _logger.LogInformation("Request logged");
                     _logger.LogInformation(bodyAsText);
-                    _logger.LogInformation(routeAsText);
+                    _logger.LogInformation($"Request URL: {Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(context.Request)}");
+                    var headerDictionary = context.Request.Headers;
+                    foreach (var header in headerDictionary)
+                    {
+                        _logger.LogInformation($"{header.Key} {header.Value.ToString()}");
+                    }
                     context.Request.Body.Position = 0;
                 }
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "Could not log request body");
+            }
+        }
+        private async Task LogResponse(HttpContext context)
+        {
+            try
+            {
+                var headerDictionary = context.Response.Headers;
+                _logger.LogInformation("Response logged");
+                foreach (var header in headerDictionary)
+                {
+                   _logger.LogInformation($"{header.Key} {header.Value.ToString()}");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Could not log Response");
             }
         }
     }

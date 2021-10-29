@@ -12,7 +12,9 @@ namespace OzonEdu.MerchandiseService.Infrastructure.StartupFilters
             return app =>
             {
                 app.Map("/version", builder => builder.UseMiddleware<VersionMiddleware>());
-                app.UseMiddleware<RequestLoggingMiddleware>();
+                app.Map("/ready", builder => builder.UseMiddleware<OkMiddleware>());
+                app.Map("/live", builder => builder.UseMiddleware<OkMiddleware>());
+                app.UseMiddleware<LoggingMiddleware>();
                 next(app);
             };
         }

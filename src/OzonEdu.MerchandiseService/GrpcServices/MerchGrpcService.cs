@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Google.Protobuf.WellKnownTypes;
+﻿using System.Threading.Tasks;
 using Grpc.Core;
 using OzonEdu.MerchandiseService.Grpc;
-using OzonEdu.MerchandiseService.Models;
 using OzonEdu.MerchandiseService.Services.Interfaces;
 namespace OzonEdu.MerchandiseService.GrpcServices
 {
@@ -15,6 +12,15 @@ namespace OzonEdu.MerchandiseService.GrpcServices
         {
             _merchService = merchService;
         }
-        
+        public override Task<ItemMerch> RequestMerch(RequestMerchItem request, ServerCallContext context)
+        {
+            throw new RpcException(new Status(StatusCode.Unknown, "Нет реализации"),
+                new Metadata {new Metadata.Entry("key", "our value")});
+        }
+        public override Task<ItemMerch> ResponseMerch(Employee id, ServerCallContext context)
+        {
+            throw new RpcException(new Status(StatusCode.Unknown, "Нет реализации"),
+                new Metadata {new Metadata.Entry("key", "our value")});
+        }
     }
 }

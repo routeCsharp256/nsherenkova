@@ -13,7 +13,8 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
         public async Task InvokeAsync(HttpContext context)
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "no version";
-            await context.Response.WriteAsync(version);
+            var name =  Assembly.GetExecutingAssembly().GetName().Name ?? "no name";
+            await context.Response.WriteAsync($"version: {version}, serviceName: {name}");
         }
     }
 }

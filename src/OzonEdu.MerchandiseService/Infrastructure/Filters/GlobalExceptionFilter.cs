@@ -11,7 +11,6 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Filters
             var resultObject = new
             {
                 ExceptionType = context.Exception.GetType().FullName,
-                Message = context.Exception.Message,
                 StackT = context.Exception.StackTrace
             };
 

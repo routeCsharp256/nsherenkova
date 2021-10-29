@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using OzonEdu.MerchandiseService.HttpModels;
 using OzonEdu.MerchandiseService.Models;
 using OzonEdu.MerchandiseService.Services.Interfaces;
@@ -22,12 +20,12 @@ namespace OzonEdu.MerchandiseService.Controllers
         }
         
         /// <summary>
-        /// получить информацию о выдаче мерча
+        /// получить информацию о выдаче мерча по id сотрудника
         /// </summary>
         [HttpGet("{id:long}")]
-        public async Task<ActionResult<MerchItem>> MerchandiseResponse (long employeeId, CancellationToken token)
+        public async Task<ActionResult<MerchItem>> MerchandiseResponse (long id, CancellationToken token)
         {
-            var merchItem = await _merchService.MerchandiseResponse(employeeId, token);
+            var merchItem = await _merchService.MerchandiseResponse(id, token);
             if (merchItem is null)
             {
                 return NotFound();
