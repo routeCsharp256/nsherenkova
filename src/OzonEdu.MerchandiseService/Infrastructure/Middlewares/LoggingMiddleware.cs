@@ -31,42 +31,52 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Middlewares
                 if (context.Request.ContentLength > 0)
                 {
                     context.Request.EnableBuffering();
-                
+
                     var buffer = new byte[context.Request.ContentLength.Value];
                     await context.Request.Body.ReadAsync(buffer, 0, buffer.Length);
                     var bodyAsText = Encoding.UTF8.GetString(buffer);
-                    
+
                     _logger.LogInformation("Request logged");
                     _logger.LogInformation(bodyAsText);
-                    _logger.LogInformation($"Request URL: {Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(context.Request)}");
-                    var headerDictionary = context.Request.Headers;
-                    foreach (var header in headerDictionary)
-                    {
-                        _logger.LogInformation($"{header.Key} {header.Value.ToString()}");
-                    }
                     context.Request.Body.Position = 0;
                 }
+
+                _logger.LogInformation(
+                    $"Request URL: {Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(context.Request)}");
+                _logger.LogInformation("Request headers");
+                var headerDictionary = context.Request.Headers;
+                LoggingHeader(headerDictionary);
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Could not log request body");
+                _logger.LogError(e, "Could not log request");
             }
         }
+
         private async Task LogResponse(HttpContext context)
         {
             try
             {
+                await Task.Delay(100);
                 var headerDictionary = context.Response.Headers;
-                _logger.LogInformation("Response logged");
-                foreach (var header in headerDictionary)
-                {
-                   _logger.LogInformation($"{header.Key} {header.Value.ToString()}");
-                }
+                _logger.LogInformation("Response headers");
+                LoggingHeader(headerDictionary);
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Could not log Response");
+                _logger.LogError(e, "Could not log response");
             }
+        }
+
+        private void LoggingHeader(IHeaderDictionary headerDictionary)
+        {
+            string headerAsText = "";
+            foreach (var header in headerDictionary)
+            {
+                headerAsText += $"{header.Key} {header.Value.ToString()}\n";
+            }
+
+            _logger.LogInformation(headerAsText);
         }
     }
 }
