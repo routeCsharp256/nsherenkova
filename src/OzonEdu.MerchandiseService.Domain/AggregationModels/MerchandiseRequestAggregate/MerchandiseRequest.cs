@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects;
 using OzonEdu.MerchandiseService.Domain.Models;
 
 namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate
@@ -51,18 +53,18 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
             Status = MerchandiseRequestStatus.Assigned;
         }
 
-        public MerchandiseRequest(long employeeId, PhoneNumber contactPhone, long responsibleManagerId, MerchandiseItem items)
+        public MerchandiseRequest(long employeeId, PhoneNumber contactPhone, long responsibleManagerId, 
+            MerchandiseItem items)
             : this(employeeId, contactPhone, responsibleManagerId)
         {
-            ResponsibleManagerId = responsibleManagerId;
             Status = MerchandiseRequestStatus.InProgress;
             MerchandiseItem = items;
         }
 
         /// <summary>
-        /// Создаем заявку для конкретного сотрудника
+        /// Создаем заявку на пакет мерча для конкретного сотрудника 
         /// </summary>
-        public void Create(long employeeId, PhoneNumber contactPhone)
+        public void Create(long employeeId, PhoneNumber contactPhone, MerchPack merchPack)
         {
             if (Status != MerchandiseRequestStatus.Draft)
             {
@@ -71,6 +73,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
 
             EmployeeId = employeeId;
             ContactPhone = contactPhone ?? throw new Exception("Phone should not be null");
+            MerchandiseItem = new MerchandiseItem(merchPack);
             Status = MerchandiseRequestStatus.Created;
         }
 
@@ -92,14 +95,14 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         /// <summary>
         /// Берем заявку на мерч в работу
         /// </summary>
-        public void StartWork(MerchandiseItem items)
+        public void StartWork(List<Sku> itemsSku)
         {
             if (Status != MerchandiseRequestStatus.Assigned)
             {
                 throw new Exception("Incorrect request status");
             }
 
-            MerchandiseItem = items;
+            MerchandiseItem.AddSku(itemsSku);
             Status = MerchandiseRequestStatus.InProgress;
         }
 

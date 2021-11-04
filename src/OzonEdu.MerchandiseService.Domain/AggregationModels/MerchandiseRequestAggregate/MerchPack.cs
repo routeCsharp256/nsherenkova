@@ -2,11 +2,11 @@
 
 namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate
 {
-    public class Type : Entity
+    public class MerchPack : Entity
     {
         public MerchType MerchType { get; }
 
-        public Type(MerchType type)
+        public MerchPack(MerchType type)
         {
             MerchType = type;
         }
