@@ -32,21 +32,14 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         /// </summary>
         public MerchandiseItem MerchandiseItem { get; private set; }
 
-        public MerchandiseRequest()
-            : base()
-        {
-            Status = MerchandiseRequestStatus.Draft;
-        }
-
         public MerchandiseRequest(long employeeId, PhoneNumber contactPhone)
-            : this()
         {
             EmployeeId = employeeId;
             ContactPhone = contactPhone ?? throw new Exception("Phone should not be null");
-            Status = MerchandiseRequestStatus.Created;
+            Status = MerchandiseRequestStatus.Draft;
         }
 
-        public MerchandiseRequest(long employeeId, PhoneNumber contactPhone, long responsibleManagerId)
+        /*public MerchandiseRequest(long employeeId, PhoneNumber contactPhone, long responsibleManagerId)
             : this(employeeId, contactPhone)
         {
             ResponsibleManagerId = responsibleManagerId;
@@ -59,20 +52,17 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             Status = MerchandiseRequestStatus.InProgress;
             MerchandiseItem = items;
-        }
+        }*/
 
         /// <summary>
         /// Создаем заявку на пакет мерча для конкретного сотрудника 
         /// </summary>
-        public void Create(long employeeId, PhoneNumber contactPhone, MerchPack merchPack)
+        public void Create( MerchPack merchPack)
         {
             if (Status != MerchandiseRequestStatus.Draft)
             {
                 throw new Exception("Incorrect request status");
             }
-
-            EmployeeId = employeeId;
-            ContactPhone = contactPhone ?? throw new Exception("Phone should not be null");
             MerchandiseItem = new MerchandiseItem(merchPack);
             Status = MerchandiseRequestStatus.Created;
         }

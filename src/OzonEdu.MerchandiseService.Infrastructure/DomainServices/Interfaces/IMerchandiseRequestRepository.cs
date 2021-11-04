@@ -14,5 +14,6 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces
         /// <param name="cancellationToken">Токен для отмены операции. <see cref="CancellationToken"/></param>
         /// <returns>Запрос на мерч</returns>
         Task<MerchandiseRequest> FindByIdAsync(long id, CancellationToken cancellationToken = default);
+        Task<MerchandiseRequest> FindByIdAndMerchPackAsync(long id, int merchPack, CancellationToken cancellationToken = default);
     }
 }

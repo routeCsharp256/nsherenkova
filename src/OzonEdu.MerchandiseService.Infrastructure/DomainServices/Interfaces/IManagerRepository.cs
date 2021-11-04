@@ -1,11 +1,13 @@
-﻿using System.Threading;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.ManagerAggregate;
 using OzonEdu.MerchandiseService.Infrastukture.Contracts;
 
 namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces
 {
-    public interface IManagerRepository: IRepository<Manager>
+    public interface IManagerRepository: IRepository<Manager>, IEnumerable<Manager>
     {
         /// <summary>
         /// Найти Мэнеджера по идентификатору
