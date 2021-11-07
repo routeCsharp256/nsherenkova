@@ -11,7 +11,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects
         
         public PhoneNumber(string value)
         {
-            if (IsPhoneNumber(value)) 
+            if (IsValidPhoneNumber(value)) 
                 Value = value;
             else
             {
@@ -22,7 +22,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects
         {
             yield return Value;
         }
-        private static bool IsPhoneNumber(string number)
+        private static bool IsValidPhoneNumber(string number)
         {
             return Regex.Match(number, @"^([0-9]{11})$").Success;
         }
