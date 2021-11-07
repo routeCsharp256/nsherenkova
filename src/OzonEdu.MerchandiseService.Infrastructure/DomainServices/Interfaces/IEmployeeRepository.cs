@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.EmployeeAggregate;
 using OzonEdu.MerchandiseService.Infrastukture.Contracts;
-
 namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces
 {
     public interface IEmployeeRepository: IRepository<Employee>

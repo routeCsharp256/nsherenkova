@@ -39,20 +39,21 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
             Status = MerchandiseRequestStatus.Draft;
         }
 
-        /*public MerchandiseRequest(long employeeId, PhoneNumber contactPhone, long responsibleManagerId)
+        public MerchandiseRequest(long employeeId, PhoneNumber contactPhone, MerchandiseItem items)
             : this(employeeId, contactPhone)
         {
-            ResponsibleManagerId = responsibleManagerId;
-            Status = MerchandiseRequestStatus.Assigned;
+            MerchandiseItem = items;
+            Status = MerchandiseRequestStatus.Created;
         }
 
-        public MerchandiseRequest(long employeeId, PhoneNumber contactPhone, long responsibleManagerId, 
-            MerchandiseItem items)
-            : this(employeeId, contactPhone, responsibleManagerId)
+        public MerchandiseRequest(long employeeId, PhoneNumber contactPhone,  
+            MerchandiseItem items, long responsibleManagerId)
+            : this(employeeId, contactPhone, items)
         {
-            Status = MerchandiseRequestStatus.InProgress;
+            Status = MerchandiseRequestStatus.Assigned;
+            ResponsibleManagerId = responsibleManagerId;
             MerchandiseItem = items;
-        }*/
+        }
 
         /// <summary>
         /// Создаем заявку на пакет мерча для конкретного сотрудника 

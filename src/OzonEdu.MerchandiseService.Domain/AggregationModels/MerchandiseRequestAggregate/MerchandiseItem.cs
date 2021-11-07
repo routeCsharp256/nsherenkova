@@ -17,7 +17,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         }
 
         public MerchPack MerchPack { get;  }
-        public List<Sku> Items { get; private set; }
+        public List<Sku> Items { get; set; }
         
         /// <summary>
         /// Дабавляем конкретные Sku в пакет
@@ -26,7 +26,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Items is not null)
                 throw new Exception("The list of Sku is already filled in");
-            Items = items?? throw new Exception("The list of Sku should not be null");
+            Items = items?? throw new ArgumentException("The list of Sku should not be null");
         }
     }
 }

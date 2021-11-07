@@ -25,26 +25,33 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Handlers
 
         public async Task<Unit> Handle(CreateMerchandiseRequestCommand request, CancellationToken cancellationToken)
         {
-            var merchInDb = await _merchandiseRequestRepository
+            var merchInMerchandiseRequestRepository = await _merchandiseRequestRepository
                 .FindByIdAndMerchPackAsync(request.EmployeeId,
-                request.MerchType, cancellationToken);
-            if (merchInDb is not null)
+                    request.MerchType, cancellationToken);
+            if (merchInMerchandiseRequestRepository is not null)
                 throw new Exception(
                     $"MerchandiseRequest with EmployeeId {request.EmployeeId} and {request.MerchType} already exist");
+            MerchandiseRequest newMerchandiseRequest;
+            var employeeInMerchandiseRequestRepository = await _merchandiseRequestRepository
+                .FindByIdAsync(request.EmployeeId, cancellationToken);
+            if (employeeInMerchandiseRequestRepository is not null)
+                newMerchandiseRequest = employeeInMerchandiseRequestRepository;
+            else
+            {
+                var employee = await _employeeRepository.FindByIdAsync(request.EmployeeId, cancellationToken);
+                newMerchandiseRequest = new MerchandiseRequest(request.EmployeeId, employee.PhoneNumber);
+            }
 
-            var employee = await _employeeRepository.FindByIdAsync(request.EmployeeId, cancellationToken);
-            var newMerchandiseRequest = new MerchandiseRequest(request.EmployeeId, employee.PhoneNumber);
             var merchPack = new MerchPack(MerchType.GetAll<MerchType>()
                 .FirstOrDefault(it => it.Id.Equals(request.MerchType)));
             newMerchandiseRequest.Create(merchPack);
 
+
             var createResult =
                 await _merchandiseRequestRepository.CreateAsync(newMerchandiseRequest, cancellationToken);
             await _merchandiseRequestRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            
+
             return Unit.Value;
         }
     }
 }
-
-   

@@ -5,10 +5,10 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects
 {
     public class PersonName : ValueObject
     {
-        public string FirstName { get;  }
-        public string LastName { get;  }
+        public string FirstName { get; }
+        public string LastName { get; }
 
-        private PersonName(string firstName, string lastName)
+        public PersonName(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
