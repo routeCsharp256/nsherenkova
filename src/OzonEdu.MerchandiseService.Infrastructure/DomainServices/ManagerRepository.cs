@@ -19,7 +19,8 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices
         public IUnitOfWork UnitOfWork { get; }
         public Task<Manager> CreateAsync(Manager itemToCreate, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            _items.Add(itemToCreate);
+            return Task.FromResult(itemToCreate);
         }
 
         public Task<Manager> UpdateAsync(Manager itemToUpdate, CancellationToken cancellationToken = default)

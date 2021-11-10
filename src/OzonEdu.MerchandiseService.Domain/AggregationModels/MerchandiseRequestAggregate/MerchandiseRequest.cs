@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects;
+using OzonEdu.MerchandiseService.Domain.Events;
 using OzonEdu.MerchandiseService.Domain.Models;
 
 namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate
@@ -95,6 +96,8 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
 
             MerchandiseItem.AddSku(itemsSku);
             Status = MerchandiseRequestStatus.InProgress;
+            
+            AddRequestToReceiveMerchElementsDomainEvent(itemsSku);
         }
 
         /// <summary>
@@ -108,6 +111,12 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
             }
 
             Status = MerchandiseRequestStatus.Done;
+        }
+
+        private void AddRequestToReceiveMerchElementsDomainEvent(List<Sku> listSku)
+        {
+            var inProgressDomainEvent = new RequestToReceiveMerchElementsDomainEvent(listSku);
+            this.AddDomainEvent(inProgressDomainEvent);
         }
     }
 

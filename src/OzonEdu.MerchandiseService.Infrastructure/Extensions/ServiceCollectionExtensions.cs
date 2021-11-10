@@ -1,6 +1,9 @@
 ﻿using System;
 using MediatR;
+using OzonEdu.MerchandiseService.Infrastructure.DomainServices;
+using OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces;
 using OzonEdu.MerchandiseService.Infrastructure.Handlers;
+using OzonEdu.MerchandiseService.Infrastukture.Contracts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -28,8 +31,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>Объект <see cref="IServiceCollection"/></returns>
         public static IServiceCollection AddInfrastructureRepositories(this IServiceCollection services)
         {
-            
-            
+            services.AddScoped<IMerchandiseRequestRepository, MerchandiseRequestRepository>();
+            services.AddScoped<IManagerRepository, ManagerRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             return services;
         }
     }
