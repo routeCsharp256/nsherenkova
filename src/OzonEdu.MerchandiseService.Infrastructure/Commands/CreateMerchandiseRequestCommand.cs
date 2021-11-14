@@ -9,7 +9,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Commands
         public long EmployeeId { get;  init; }
         
         /// <summary>
-        /// Коллекция мерча
+        /// Тип мерча
         /// </summary>
         public int MerchType { get;  init; }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects;
 using OzonEdu.MerchandiseService.Domain.Events;
+using OzonEdu.MerchandiseService.Domain.Exceptions;
 using OzonEdu.MerchandiseService.Domain.Models;
 
 namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate
@@ -16,12 +17,12 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         /// <summary>
         /// Идентификатор сотрудника, которому предназначен мерч
         /// </summary>
-        public long EmployeeId { get; private set; }
+        public long EmployeeId { get;  }
 
         /// <summary>
         /// Телефон для связи с сотрудником
         /// </summary>
-        public PhoneNumber ContactPhone { get; private set; }
+        public PhoneNumber ContactPhone { get;  }
 
         /// <summary>
         /// ID ответственного менеджера за выдачу мерча
@@ -35,8 +36,10 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
 
         public MerchandiseRequest(long employeeId, PhoneNumber contactPhone)
         {
+            if (employeeId < 0)
+                throw new NegativeValueException($"{nameof(employeeId)} value is negative");
             EmployeeId = employeeId;
-            ContactPhone = contactPhone ?? throw new Exception("Phone should not be null");
+            ContactPhone = contactPhone ?? throw new ArgumentNullException("Phone should not be null");
             Status = MerchandiseRequestStatus.Draft;
         }
 
@@ -57,9 +60,10 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         }
 
         /// <summary>
-        /// Создаем заявку на пакет мерча для конкретного сотрудника 
+        /// Создаем заявку на пакет мерча для конкретного сотрудника
+        /// Если заявка не в статусе Draft, то выбрасываем исключение
         /// </summary>
-        public void Create( MerchPack merchPack)
+        public void AddMerchPack( MerchPack merchPack)
         {
             if (Status != MerchandiseRequestStatus.Draft)
             {
@@ -70,8 +74,9 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         }
 
         /// <summary>
-        /// Назначаем заявку на мерч ответственному менеджеру
+        /// Назначаем заявку на мерч ответственному менеджеру, запрос передается в работу
         /// Если заявка не в статусе Created, то выбрасываем исключение
+        /// Если Id менеджера отрицательное число, то выбрасываем исключение
         /// </summary>
         public void AssignTo(long responsibleManagerId)
         {
@@ -80,8 +85,13 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
                 throw new Exception("Incorrect request status");
             }
 
-            Status = MerchandiseRequestStatus.Assigned;
+            if (responsibleManagerId < 0)
+            {
+                throw new NegativeValueException($"{nameof(responsibleManagerId)} value is negative");
+            }
+
             ResponsibleManagerId = responsibleManagerId;
+            Status = MerchandiseRequestStatus.Assigned;
         }
 
         /// <summary>
@@ -94,7 +104,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
                 throw new Exception("Incorrect request status");
             }
 
-            MerchandiseItem.AddSku(itemsSku);
+            MerchandiseItem.AddRange(itemsSku);
             Status = MerchandiseRequestStatus.InProgress;
             
             AddRequestToReceiveMerchElementsDomainEvent(itemsSku);

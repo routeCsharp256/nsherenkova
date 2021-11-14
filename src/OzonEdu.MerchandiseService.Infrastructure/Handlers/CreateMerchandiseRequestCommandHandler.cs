@@ -44,12 +44,12 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Handlers
 
             var merchPack = new MerchPack(MerchType.GetAll<MerchType>()
                 .FirstOrDefault(it => it.Id.Equals(request.MerchType)));
-            newMerchandiseRequest.Create(merchPack);
+            newMerchandiseRequest.AddMerchPack(merchPack);
 
 
             var createResult =
                 await _merchandiseRequestRepository.CreateAsync(newMerchandiseRequest, cancellationToken);
-            await _merchandiseRequestRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _merchandiseRequestRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

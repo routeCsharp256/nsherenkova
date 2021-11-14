@@ -28,20 +28,17 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices
             throw new System.NotImplementedException();
         }
 
-        public IEnumerator<Manager> GetEnumerator()
+        public Task<Manager> FindManagerCanHandleNewTask( CancellationToken cancellationToken = default)
         {
-            return _items.GetEnumerator();
+            var managerItem = _items.FirstOrDefault(x => x.CanHandleNewTask);
+            return Task.FromResult(managerItem);
         }
-
         public Task<Manager> FindByIdAsync(long id, CancellationToken cancellationToken = default)
         {
             var managerItem = _items.FirstOrDefault(x => x.Id == id);
             return Task.FromResult(managerItem);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+       
     }
 }

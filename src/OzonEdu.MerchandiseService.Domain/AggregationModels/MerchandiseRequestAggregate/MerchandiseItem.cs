@@ -6,27 +6,36 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
 {
     public class MerchandiseItem : Entity
     {
+        public MerchPack MerchPack { get; }
+        public List<Sku> Items { get; }
+
         public MerchandiseItem(MerchPack merchPack)
         {
+            if (merchPack is null)
+                throw new ArgumentException("The type of merch must be determined");
             MerchPack = merchPack;
+            Items = new List<Sku>();
         }
 
         public MerchandiseItem(MerchPack merchPack, List<Sku> items) : this(merchPack)
         {
-            Items = items;
+            if (items is null)
+                throw new ArgumentException("The list of Sku should not be null");
+            AddRange(items);
         }
 
-        public MerchPack MerchPack { get;  }
-        public List<Sku> Items { get; set; }
-        
+
         /// <summary>
         /// Дабавляем конкретные Sku в пакет
         /// </summary>
-        public void AddSku(List<Sku> items)
+        public void AddRange(List<Sku> items)
         {
-            if (Items is not null)
-                throw new Exception("The list of Sku is already filled in");
-            Items = items?? throw new ArgumentException("The list of Sku should not be null");
+            if (items is null)
+                throw new ArgumentException("The list of Sku should not be null");
+            foreach (var item in items)
+            {
+                Items.Add(item);
+            }
         }
     }
 }

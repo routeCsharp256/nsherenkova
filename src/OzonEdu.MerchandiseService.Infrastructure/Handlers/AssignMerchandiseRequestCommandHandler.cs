@@ -26,21 +26,19 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Handlers
             var merchInDb = await _merchandiseRequestRepository
                 .FindByIdAndMerchPackAsync(request.EmployeeId,
                     request.MerchType, cancellationToken);
-            
-            if (!_managerRepository.Any(m => m.CanHandleNewTask))
+            var responsibleManager = _managerRepository.FindManagerCanHandleNewTask(cancellationToken);
+            if (responsibleManager is null)
             {
                 throw new Exception("No vacant managers");
             }
-
-            var responsibleManager = _managerRepository.OrderBy(m => m.AssignedTasks).First();
-
             merchInDb.AssignTo(responsibleManager.Id);
-            responsibleManager.AssignTask();
+            responsibleManager.Result.AssignTask();
+            
             var createResult =
                 await _merchandiseRequestRepository.CreateAsync(merchInDb, cancellationToken);
-            await _merchandiseRequestRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _merchandiseRequestRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
             
-            return responsibleManager;
+            return responsibleManager.Result;
         }
     }
 }
