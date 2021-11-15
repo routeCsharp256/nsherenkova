@@ -71,7 +71,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.Draft)
             {
-                throw new IncorrectRequestStatus("Incorrect request status");
+                throw new IncorrectRequestStatus("Add MerchPack can be only for MerchendiseRequest in 'Draft' status");
             }
             MerchandiseItem = new MerchandiseItem(merchPack);
             Status = MerchandiseRequestStatus.Created;
@@ -86,7 +86,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.Created)
             {
-                throw new IncorrectRequestStatus("ManagerCanBeAssigned only for MerchendiseRequest in Created Status.");
+                throw new IncorrectRequestStatus("Manager can be Assigned only for MerchendiseRequest in 'Created' Status.");
             }
 
             if (responsibleManagerId < 0)
@@ -105,7 +105,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.Assigned)
             {
-                throw new IncorrectRequestStatus("StartWork MerchandiseRequest can be only in 'Assigned' status");
+                throw new IncorrectRequestStatus("StartWork can be only for MerchendiseRequest in 'Assigned' status");
             }
 
             MerchandiseItem.AddRange(itemsSku);
@@ -121,7 +121,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.InProgress)
             {
-                throw new IncorrectRequestStatus("Complete MerchandiseRequest can be only in 'InProgress' status");
+                throw new IncorrectRequestStatus("Complete of work can be only for MerchendiseRequest in 'InProgress' status");
             }
 
             Status = MerchandiseRequestStatus.Done;
