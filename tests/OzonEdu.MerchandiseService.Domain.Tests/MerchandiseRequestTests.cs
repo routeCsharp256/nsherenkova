@@ -42,7 +42,7 @@ namespace OzonEdu.MerchandiseService.Domain.Tests
             void action() => merchandiseRequest.AddMerchPack(new MerchPack(MerchType.StarterPack));
 
             //Assert
-            Assert.Throws<Exception>(action);
+            Assert.Throws<IncorrectRequestStatus>(action);
         }
         [Fact]
         public void AssignTo_WhenIdManagerIsNegative_Throws()

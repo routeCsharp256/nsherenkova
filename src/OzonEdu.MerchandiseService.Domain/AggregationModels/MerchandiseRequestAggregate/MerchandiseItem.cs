@@ -12,7 +12,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         public MerchandiseItem(MerchPack merchPack)
         {
             if (merchPack is null)
-                throw new ArgumentException("The type of merch must be determined");
+                throw new ArgumentNullException("The type of merch must be determined");
             MerchPack = merchPack;
             Items = new List<Sku>();
         }
@@ -20,7 +20,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         public MerchandiseItem(MerchPack merchPack, List<Sku> items) : this(merchPack)
         {
             if (items is null)
-                throw new ArgumentException("The list of Sku should not be null");
+                throw new ArgumentNullException("The list of Sku should not be null");
             AddRange(items);
         }
 
@@ -31,7 +31,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         public void AddRange(List<Sku> items)
         {
             if (items is null)
-                throw new ArgumentException("The list of Sku should not be null");
+                throw new ArgumentNullException("The list of Sku should not be null");
             foreach (var item in items)
             {
                 Items.Add(item);

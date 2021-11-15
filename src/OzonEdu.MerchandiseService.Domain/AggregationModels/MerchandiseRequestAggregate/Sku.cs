@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using OzonEdu.MerchandiseService.Domain.Exceptions;
 using OzonEdu.MerchandiseService.Domain.Models;
 
 namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate
@@ -9,6 +10,10 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         
         public Sku(long sku)
         {
+            if (sku < 0)
+            {
+                throw new NegativeValueException($"{nameof(sku)} value is negative");
+            }
             Value = sku;
         }
         

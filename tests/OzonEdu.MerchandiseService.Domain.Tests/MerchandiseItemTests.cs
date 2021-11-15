@@ -29,7 +29,7 @@ namespace OzonEdu.MerchandiseService.Domain.Tests
             void action() =>  new MerchandiseItem(null);
 
             //Assert
-            Assert.Throws<ArgumentException>(action);
+            Assert.Throws<ArgumentNullException>(action);
         }
         [Fact]
         public void AddRange_WhenListSkuIsNotNull_MerchItemAddedListSku ()
@@ -55,7 +55,7 @@ namespace OzonEdu.MerchandiseService.Domain.Tests
             void action() =>  merchItem.AddRange(null);
 
             //Assert
-            Assert.Throws<ArgumentException>(action);
+            Assert.Throws<ArgumentNullException>(action);
         }
     }
 }

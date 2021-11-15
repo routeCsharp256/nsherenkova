@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MediatR;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate;
 
@@ -9,12 +10,10 @@ namespace OzonEdu.MerchandiseService.Domain.Events
     /// </summary>
     public class RequestToReceiveMerchElementsDomainEvent : INotification
     {
+        public List<Sku> ListSku { get; }
         public RequestToReceiveMerchElementsDomainEvent(List<Sku> listSku)
         {
-            ListSku = listSku;
+            ListSku = listSku?? throw new ArgumentNullException($"{nameof(listSku)} should not be null");
         }
-
-        public List<Sku> ListSku { get; }
-
     }
 }

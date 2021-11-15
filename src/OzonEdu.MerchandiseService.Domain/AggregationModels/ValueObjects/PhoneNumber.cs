@@ -15,7 +15,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects
                 Value = value;
             else
             {
-                throw new AggregateException($"Phone Number {value} incorrectly");
+                throw new ArgumentException($"Phone Number {value} incorrectly");
             }
         }
         protected override IEnumerable<object> GetEqualityComponents()

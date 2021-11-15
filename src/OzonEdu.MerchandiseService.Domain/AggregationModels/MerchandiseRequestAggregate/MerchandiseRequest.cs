@@ -54,8 +54,12 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
             MerchandiseItem items, long responsibleManagerId)
             : this(employeeId, contactPhone, items)
         {
-            Status = MerchandiseRequestStatus.Assigned;
+            if (responsibleManagerId < 0)
+            {
+                throw new NegativeValueException($"{nameof(responsibleManagerId)} value is negative");
+            }
             ResponsibleManagerId = responsibleManagerId;
+            Status = MerchandiseRequestStatus.Assigned;
             MerchandiseItem = items;
         }
 
@@ -67,7 +71,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.Draft)
             {
-                throw new Exception("Incorrect request status");
+                throw new IncorrectRequestStatus("Incorrect request status");
             }
             MerchandiseItem = new MerchandiseItem(merchPack);
             Status = MerchandiseRequestStatus.Created;
@@ -82,7 +86,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.Created)
             {
-                throw new Exception("Incorrect request status");
+                throw new IncorrectRequestStatus("ManagerCanBeAssigned only for MerchendiseRequest in Created Status.");
             }
 
             if (responsibleManagerId < 0)
@@ -101,7 +105,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.Assigned)
             {
-                throw new Exception("Incorrect request status");
+                throw new IncorrectRequestStatus("StartWork MerchandiseRequest can be only in 'Assigned' status");
             }
 
             MerchandiseItem.AddRange(itemsSku);
@@ -117,7 +121,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (Status != MerchandiseRequestStatus.InProgress)
             {
-                throw new Exception("Incorrect request status");
+                throw new IncorrectRequestStatus("Complete MerchandiseRequest can be only in 'InProgress' status");
             }
 
             Status = MerchandiseRequestStatus.Done;
