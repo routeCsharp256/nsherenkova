@@ -28,17 +28,23 @@ namespace OzonEdu.MerchandiseService.Domain.Models
             {
                 return false;
             }
-            
+
             var typeMatches = GetType().Equals(obj.GetType());
             var valueMatches = Id.Equals(otherValue.Id);
 
             return typeMatches && valueMatches;
         }
+
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Id);
         }
-        public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
 
+        public int CompareTo(object other)
+        {
+            if (other is Enumeration)
+                return Id.CompareTo(((Enumeration) other).Id);
+            throw new ArgumentException("The object type is not suitable for comparison");
+        }
     }
 }
