@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.ManagerAggregate;
-using OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate;
 using OzonEdu.MerchandiseService.Infrastructure.Commands;
 using OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces;
 

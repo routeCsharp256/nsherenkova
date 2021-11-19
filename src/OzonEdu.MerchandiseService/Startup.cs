@@ -17,6 +17,7 @@ namespace OzonEdu.MerchandiseService
         {
             services.AddSingleton<IMerchService, MerchService>();
             services.AddInfrastructureServices();
+            services.AddInfrastructureRepositories();
             services.AddGrpc(options => options.Interceptors.Add<LoggingInterceptor>());
 
         }
