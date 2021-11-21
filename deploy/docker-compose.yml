@@ -3,21 +3,21 @@
 services:
   merchandise-service:
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ..
+      dockerfile: Dockerfile
     hostname: merchandise-service
     ports:
       - "5070:5000"
       - "5072:5002"
     environment:
-      DatabaseConnectionOptions__ConnectionString: "Host=host.docker.internal;Port=5426;Database=merchandise-service;Username=postgres;Password=merchandiseServicePassword"
+      DatabaseConnectionOptions__ConnectionString: "Host=host.docker.internal;Port=5428;Database=merchandise-service;Username=postgres;Password=merchandiseServicePassword"
     depends_on:
       - merchandise-service-db
 
   supply-service:
     image: ghcr.io/ozon-edu-csharp-2021/supply-service:main
     environment:
-      DbConfiguration__ConnectionString: "Host=host.docker.internal;Port=5428;Database=supply-service;Username=postgres;Password=supplyServicePassword"
+      DbConfiguration__ConnectionString: "Host=host.docker.internal;Port=5426;Database=supply-service;Username=postgres;Password=supplyServicePassword"
     hostname: supply-service
     depends_on:
       - supply-service-db

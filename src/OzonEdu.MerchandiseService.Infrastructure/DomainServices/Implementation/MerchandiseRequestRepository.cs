@@ -2,37 +2,42 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Npgsql;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequestAggregate;
 using OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects;
+using OzonEdu.MerchandiseService.Infrastructure.DomainServices.Infrastructure.Interfaces;
 using OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces;
 using OzonEdu.MerchandiseService.Infrastukture.Contracts;
 
-namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices
+namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Implementation
 {
     public class MerchandiseRequestRepository: IMerchandiseRequestRepository
     {
-        private readonly List<MerchandiseRequest> _items = new List<MerchandiseRequest>()
-        { new MerchandiseRequest(1, new PhoneNumber("88888888888")),
-            new MerchandiseRequest(2,new PhoneNumber("89123456789"))
-        }; 
+        public IUnitOfWork UnitOfWork { get; }
+        private readonly IDbConnectionFactory<NpgsqlConnection> _dbConnectionFactory;
+        private readonly IChangeTracker _changeTracker;
+
+        public MerchandiseRequestRepository(IDbConnectionFactory<NpgsqlConnection> dbConnectionFactory, IChangeTracker changeTracker, IUnitOfWork unitOfWork)
+        {
+            _dbConnectionFactory = dbConnectionFactory;
+            _changeTracker = changeTracker;
+            UnitOfWork = unitOfWork;
+        }
+
         public Task<MerchandiseRequest> FindByIdAsync(long id, CancellationToken cancellationToken = default)
         {
-            var merchandiseRequestItem = _items.FirstOrDefault(x => x.EmployeeId == id);
-            return Task.FromResult(merchandiseRequestItem);
+            throw new System.NotImplementedException();
         }
 
         public Task<MerchandiseRequest> FindByIdAndMerchPackAsync(long id, int merchPack, CancellationToken cancellationToken = default)
         {
-            var merchandiseRequestItem = _items.FirstOrDefault(x => x.EmployeeId == id 
-                                                                    && x.MerchandiseItem.MerchPack.MerchType.Id == merchPack);
-            return Task.FromResult(merchandiseRequestItem);
+            throw new System.NotImplementedException();
         }
 
-        public IUnitOfWork UnitOfWork { get; }
+        
         public Task<MerchandiseRequest> CreateAsync(MerchandiseRequest itemToCreate, CancellationToken cancellationToken = default)
         {
-            _items.Add(itemToCreate);
-            return Task.FromResult(itemToCreate);
+            throw new System.NotImplementedException();
         }
 
         public Task<MerchandiseRequest> UpdateAsync(MerchandiseRequest itemToUpdate, CancellationToken cancellationToken = default)
