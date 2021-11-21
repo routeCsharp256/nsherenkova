@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService.Domain.Tests", "tests\OzonEdu.MerchandiseService.Domain.Tests\OzonEdu.MerchandiseService.Domain.Tests.csproj", "{2AAE7C4A-3199-41C9-8CA0-5C8561888428}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonEdu.MerchandiseService.Migrator", "src\OzonEdu.MerchandiseService.Migrator\OzonEdu.MerchandiseService.Migrator.csproj", "{F9D2846C-8308-4B07-BBFF-3C0098BD8FEE}"
+EndProject
 
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,7 @@ Global
 		{641ADE35-A2B7-49D7-927E-C12CBE197E78} = {83930311-A7A2-4520-A2BD-9119B21D429E}
 		{2AAE7C4A-3199-41C9-8CA0-5C8561888428} = {4B908AD4-63D8-4A15-A4E8-B4220AD47E45}
 
+		{F9D2846C-8308-4B07-BBFF-3C0098BD8FEE} = {83930311-A7A2-4520-A2BD-9119B21D429E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B2379292-97CD-4BCE-903E-22E2802C13FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -79,5 +82,9 @@ Global
 		{2AAE7C4A-3199-41C9-8CA0-5C8561888428}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AAE7C4A-3199-41C9-8CA0-5C8561888428}.Release|Any CPU.Build.0 = Release|Any CPU
 
+		{F9D2846C-8308-4B07-BBFF-3C0098BD8FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9D2846C-8308-4B07-BBFF-3C0098BD8FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9D2846C-8308-4B07-BBFF-3C0098BD8FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9D2846C-8308-4B07-BBFF-3C0098BD8FEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

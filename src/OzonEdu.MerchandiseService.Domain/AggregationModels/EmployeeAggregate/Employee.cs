@@ -15,7 +15,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.EmployeeAggregate
 
         public PersonName Name { get; }
 
-        public Email Email { get; private set; }
+        public Email Email { get; }
 
         public ClothingSize Size { get; }
 
