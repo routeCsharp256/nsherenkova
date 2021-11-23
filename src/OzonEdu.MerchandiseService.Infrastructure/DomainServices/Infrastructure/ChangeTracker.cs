@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using OzonEdu.MerchandiseService.Domain.Models;
@@ -19,7 +20,14 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Infrastructur
         
         public void Track(Entity entity)
         {
-            _usedEntitiesBackingField.Add(entity);
+            if (entity is not null)
+            {
+                _usedEntitiesBackingField.Add(entity);
+            }
+            else
+            {
+                throw new ArgumentNullException($"The {nameof(entity)} should not be null");
+            }
         }
     }
 }
