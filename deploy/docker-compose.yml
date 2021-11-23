@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     hostname: merchandise-service
     ports:
-      - "5070:5000"
-      - "5072:5002"
+      - "8080:5000"
+      
     environment:
       DatabaseConnectionOptions__ConnectionString: "Host=host.docker.internal;Port=5428;Database=merchandise-service;Username=postgres;Password=merchandiseServicePassword"
     depends_on:

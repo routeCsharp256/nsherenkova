@@ -7,6 +7,7 @@ ProjectSection(SolutionItems) = preProject
 	Dockerfile = Dockerfile
 	.gitignore = .gitignore
 	README.md = README.md
+	entrypoint.sh = entrypoint.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4B908AD4-63D8-4A15-A4E8-B4220AD47E45}"
