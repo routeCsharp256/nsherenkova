@@ -22,8 +22,12 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Handlers
         public async Task<Manager> Handle(AssignMerchandiseRequestCommand request, CancellationToken cancellationToken)
         {
             var merchInDb = await _merchandiseRequestRepository
-                .FindByIdAndMerchPackAsync(request.EmployeeId,
+                .FindByEmployeeIdAndMerchPackAsync(request.EmployeeId,
                     request.MerchType, cancellationToken);
+            if (merchInDb is null)
+            {
+                throw new ArgumentException("This request has not been created yet");
+            }
             var responsibleManager = await _managerRepository.FindManagerCanHandleNewTask(cancellationToken);
             if (responsibleManager is null)
             {
@@ -33,7 +37,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Handlers
             responsibleManager.AssignTask();
             
             var createResult =
-                await _merchandiseRequestRepository.CreateAsync(merchInDb, cancellationToken);
+                await _merchandiseRequestRepository.UpdateAsync(merchInDb, cancellationToken);
             await _merchandiseRequestRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
             
             return responsibleManager;

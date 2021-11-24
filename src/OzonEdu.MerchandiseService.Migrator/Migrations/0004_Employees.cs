@@ -13,7 +13,7 @@ namespace OzonEdu.MerchandiseService.Migrator.Migrations
                     first_name TEXT NOT NULL,
                     last_name TEXT NOT NULL,
                     email TEXT NOT NULL,
-                    phone_number INT NOT NULL,
+                    phone_number TEXT NOT NULL,
                     clothing_size INT NOT NULL);"
             );
         }
