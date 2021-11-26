@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ using OzonEdu.MerchandiseService.Domain.AggregationModels.ValueObjects;
 using OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces;
 using OzonEdu.MerchandiseService.Infrastukture.Contracts;
 
-namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices
+namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Implementation
 {
     public class ManagerRepository : IManagerRepository
     {

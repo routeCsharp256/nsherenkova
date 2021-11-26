@@ -26,14 +26,14 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Handlers
         public async Task<Unit> Handle(CreateMerchandiseRequestCommand request, CancellationToken cancellationToken)
         {
             var merchInMerchandiseRequestRepository = await _merchandiseRequestRepository
-                .FindByIdAndMerchPackAsync(request.EmployeeId,
+                .FindByEmployeeIdAndMerchPackAsync(request.EmployeeId,
                     request.MerchType, cancellationToken);
             if (merchInMerchandiseRequestRepository is not null)
                 throw new Exception(
                     $"MerchandiseRequest with EmployeeId {request.EmployeeId} and {request.MerchType} already exist");
             MerchandiseRequest newMerchandiseRequest;
             var employeeInMerchandiseRequestRepository = await _merchandiseRequestRepository
-                .FindByIdAsync(request.EmployeeId, cancellationToken);
+                .FindByEmployeeIdAsync(request.EmployeeId, cancellationToken);
             if (employeeInMerchandiseRequestRepository is not null)
                 newMerchandiseRequest = employeeInMerchandiseRequestRepository;
             else

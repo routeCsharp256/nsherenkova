@@ -6,6 +6,15 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
 {
     public class MerchandiseItem : Entity
     {
+        private static int uniqueId = 0;
+
+        public MerchandiseItem(int id, MerchPack merchPack, List<Sku> items)
+        {
+            Id = id;
+            MerchPack = merchPack;
+            Items = items;
+        }
+
         public MerchPack MerchPack { get; }
         public List<Sku> Items { get; }
 
@@ -13,17 +22,11 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         {
             if (merchPack is null)
                 throw new ArgumentNullException("The type of merch must be determined");
+            Id = uniqueId;
             MerchPack = merchPack;
             Items = new List<Sku>();
+            uniqueId++;
         }
-
-        public MerchandiseItem(MerchPack merchPack, List<Sku> items) : this(merchPack)
-        {
-            if (items is null)
-                throw new ArgumentNullException("The list of Sku should not be null");
-            AddRange(items);
-        }
-
 
         /// <summary>
         /// Дабавляем конкретные Sku в пакет

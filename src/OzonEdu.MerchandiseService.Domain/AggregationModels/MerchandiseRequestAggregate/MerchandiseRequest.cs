@@ -9,6 +9,17 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
 {
     public class MerchandiseRequest: Entity
     {
+        public MerchandiseRequest(int id, MerchandiseRequestStatus status, long employeeId, PhoneNumber contactPhone, 
+            long? responsibleManagerId, MerchandiseItem merchandiseItem)
+        {
+            Id = id;
+            Status = status;
+            EmployeeId = employeeId;
+            ContactPhone = contactPhone;
+            ResponsibleManagerId = responsibleManagerId;
+            MerchandiseItem = merchandiseItem;
+        }
+
         /// <summary>
         /// Текущий статус запроса
         /// </summary>
@@ -27,7 +38,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
         /// <summary>
         /// ID ответственного менеджера за выдачу мерча
         /// </summary>
-        public long ResponsibleManagerId { get; private set; }
+        public long? ResponsibleManagerId { get; private set; }
 
         /// <summary>
         /// Коллекция мерча

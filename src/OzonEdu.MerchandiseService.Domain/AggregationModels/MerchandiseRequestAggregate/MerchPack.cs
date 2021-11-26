@@ -8,6 +8,7 @@ namespace OzonEdu.MerchandiseService.Domain.AggregationModels.MerchandiseRequest
 
         public MerchPack(MerchType type)
         {
+            Id = type.Id;
             MerchType = type;
         }
     }

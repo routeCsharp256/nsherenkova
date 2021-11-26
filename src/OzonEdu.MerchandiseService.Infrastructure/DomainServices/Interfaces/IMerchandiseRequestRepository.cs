@@ -13,7 +13,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces
         /// <param name="id">Идентификатор сотрудника</param>
         /// <param name="cancellationToken">Токен для отмены операции. <see cref="CancellationToken"/></param>
         /// <returns>Запрос на мерч</returns>
-        Task<MerchandiseRequest> FindByIdAsync(long id, CancellationToken cancellationToken = default);
+        Task<MerchandiseRequest> FindByEmployeeIdAsync(long id, CancellationToken cancellationToken = default);
         /// <summary>
         /// Найти MerchandiseRequest по идентификатору сотрудника и названию пакета мерча
         /// </summary>
@@ -21,6 +21,6 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Interfaces
         /// /// <param name="merchPack">Идентификатор типа мерча</param>
         /// <param name="cancellationToken">Токен для отмены операции. <see cref="CancellationToken"/></param>
         /// <returns>Запрос на мерч</returns>
-        Task<MerchandiseRequest> FindByIdAndMerchPackAsync(long id, int merchPack, CancellationToken cancellationToken = default);
+        Task<MerchandiseRequest> FindByEmployeeIdAndMerchPackAsync(long id, int merchPack, CancellationToken cancellationToken = default);
     }
 }
