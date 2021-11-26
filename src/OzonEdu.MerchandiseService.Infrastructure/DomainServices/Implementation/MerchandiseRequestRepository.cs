@@ -60,7 +60,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Implementatio
                 merchandiseRequest.Id,
                 merchandiseRequest.Status,
                 employee.Id,
-                new PhoneNumber(employee.PhoneNumber),
+                new PhoneNumber(employee.Phone),
                 merchandiseRequest?.MenagerId,
                 merchandiseItem?.Id is not null ? 
                     new MerchandiseItem(merchandiseItem.Id.Value, new MerchPack(new MerchType(merchPack.Id, merchPack.Name)),
@@ -104,7 +104,7 @@ namespace OzonEdu.MerchandiseService.Infrastructure.DomainServices.Implementatio
                 merchandiseRequest.Id,
                 merchandiseRequest.Status,
                 employee.Id,
-                new PhoneNumber(employee.PhoneNumber),
+                new PhoneNumber(employee.Phone),
                 merchandiseRequest?.MenagerId,
                 merchandiseItem?.Id is not null ? 
                     new MerchandiseItem(merchandiseItem.Id.Value, new MerchPack(new MerchType(merchPack.Id, merchPack.Name)),

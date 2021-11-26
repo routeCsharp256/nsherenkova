@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
 namespace OzonEdu.MerchandiseService.Migrator.Migrations
 {
-    [Migration(4)]
+    [Migration(6)]
     public class ClothingSizes: Migration
     {
         public override void Up()
